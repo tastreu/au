@@ -195,7 +195,7 @@ function Update-AUPackages {
                             $res = 'ignore'
                             break main
                         }
-                       # if ($pkg) { $pkg.Error = $_ }
+                        if ($res -is [AUPackage]) { $res.Error = $_ } else { return $_ }
                     }
                 }
                 $res
@@ -226,12 +226,13 @@ function Update-AUPackages {
             if ( "$type" -ne 'AUPackage') { throw "'$using:package_name' update script didn't return AUPackage but: $type" }
 
             if ($pkg.Updated -and $Options.Push) {
-                $pkg.Result += $r = repeat_ignore { Push-Package -All:$Options.PushAll }
-                if ($LastExitCode -eq 0) {
-                    $pkg.Pushed = $true
-                } else {
-                    $pkg.Error = "Push ERROR`n" + ($r | select -skip 1)
-                }
+                $res = repeat_ignore { 
+                    $r = Push-Package -All:$Options.PushAll
+                    if ($LastExitCode -eq 0) { return $r } else { throw $r }
+                } 
+                if (!$res) -is [System.Management.Automation.ErrorRecord]) {
+                         $pkg.Error = "Push ERROR`n" + ( "$res" -split "`n" | select -skip 1)
+                } else { $pkg.Result += $res } 
             }
             
             if ($Options.AfterEach) {

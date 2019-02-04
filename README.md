@@ -271,6 +271,8 @@ Points 2-4 do not apply if you set the explicit version using the variable `au_V
 
 Force can be triggered also from the `au_GetLatest` function. This may be needed if remote version doesn't change but there was nevertheless change on the vendor site. See the [example](https://github.com/majkinetor/au-packages/blob/master/cpu-z.install/update.ps1#L18-L39) on how to update the package when remote version is unchanged but hashsum of the installer changes.
 
+**Note**: You can add the following function to your Powershell profile to speed up package development: `function fup { $global:au_force = $true; ./update.ps1 }`
+
 ### Global variables
 
 To avoid changing the `./update.ps1` when troubleshooting or experimenting you can set up any **already unset** `update` parameter via global variable. The names of global variables are the same as the names of parameters with the prefix `au_`. As an example, the following code will change the update behavior so that URL is not checked for existence and MIME type and update is forced: 

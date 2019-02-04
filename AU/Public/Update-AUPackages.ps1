@@ -231,7 +231,9 @@ function Update-AUPackages {
                 $res = repeat_ignore { 
                     $r = Push-Package -All:$Options.PushAll
                     if ($LastExitCode -eq 0) { return $r } else { throw $r }
-                } 
+                }
+                if (($res -eq 'ignore') -or ($res[-1] -eq 'ignore')) { return 'ignore' }
+
                 if ($res -is [System.Management.Automation.ErrorRecord]) {
                     $pkg.Error = "Push ERROR`n" + ( "$res" -split "`n" | select -skip 1)
                 } else {

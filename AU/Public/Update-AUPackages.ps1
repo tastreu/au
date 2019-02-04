@@ -230,7 +230,7 @@ function Update-AUPackages {
                     $r = Push-Package -All:$Options.PushAll
                     if ($LastExitCode -eq 0) { return $r } else { throw $r }
                 } 
-                if (!$res) -is [System.Management.Automation.ErrorRecord]) {
+                if (!$res -is [System.Management.Automation.ErrorRecord]) {
                          $pkg.Error = "Push ERROR`n" + ( "$res" -split "`n" | select -skip 1)
                 } else { $pkg.Result += $res } 
             }

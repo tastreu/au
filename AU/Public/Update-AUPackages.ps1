@@ -191,6 +191,7 @@ function Update-AUPackages {
                         }
                         foreach ($msg in $Options.IgnoreOn) { 
                             if ($_.Exception -notlike "*${msg}*") { continue }
+                            Write-Warning "Ignoring $using:package_name ($run_no): $($_.Exception)"
                             "AU ignored on: $($_.Exception)" | Out-File -Append $out
                             $res = 'ignore'
                             break main

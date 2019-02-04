@@ -195,7 +195,7 @@ function Update-AUPackages {
                             $res = 'ignore'
                             break main
                         }
-                        $type = $res.GetType()
+                        $type = if ($res) { $res.GetType() }
                         if ( "$type" -eq 'AUPackage') { $res.Error = $_ } else { return $_ }
                     }
                 }

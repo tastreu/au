@@ -2,7 +2,6 @@
  # Author: Miodrag Milic <miodrag.milic@gmail.com>
  # Last Change: 08-May-2018
 
- 
 <#
 .SYNOPSIS
     Update all automatic packages
@@ -235,7 +234,7 @@ function Update-AUPackages {
                 if (($res -eq 'ignore') -or ($res[-1] -eq 'ignore')) { return 'ignore' }
 
                 if ($res -is [System.Management.Automation.ErrorRecord]) {
-                    $pkg.Error = "Push ERROR`n" + ( "$res" -split "`n" | select -skip 1)
+                    $pkg.Error = "Push ERROR`n" + $res
                 } else {
                     $pkg.Pushed = $true 
                     $pkg.Result += $res 

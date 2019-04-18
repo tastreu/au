@@ -171,6 +171,8 @@ function Update-AUPackages {
         Write-Verbose "Starting $package_name"
         Start-Job -Name $package_name {         #TODO: fix laxxed variables in job for BE and AE
             function repeat_ignore([ScriptBlock] $Action) { # requires $Options
+                $ErrorActionPreference = 'Stop'
+                
                 $run_no = 0
                 $run_max = if ($Options.RepeatOn) { if (!$Options.RepeatCount) { 2 } else { $Options.RepeatCount+1 } } else {1}
 

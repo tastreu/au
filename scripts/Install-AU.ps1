@@ -37,8 +37,7 @@ if ($is_branch) {
 
 git checkout -q $Version
 
-$params = @{ Install = $true; NoChocoPackage = $true}
-if (!$is_branch) { $params.Version = $Version }
+$params = @{ Install = $true; NoChocoPackage = $true; Version = $Version }
 
 "Build parameters:"
 $params.GetEnumerator() | % { "  {0,-20} {1}" -f $_.Key, $_.Value }

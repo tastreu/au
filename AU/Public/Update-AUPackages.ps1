@@ -84,7 +84,7 @@ function Update-AUPackages {
     if (!$Options.Force)        { $Options.Force         = $false }
     if (!$Options.Push)         { $Options.Push          = $false }
     if (!$Options.PluginPath)   { $Options.PluginPath    = '' }
-    if (!$Options.NoCheckChocoVersion){ $Options.NoCheckChocoVersion	= $false }
+    if (!$Options.NoCheckChocoVersion){ $Options.NoCheckChocoVersion	= $true }
 
     Remove-Job * -force #remove any previously run jobs
 
